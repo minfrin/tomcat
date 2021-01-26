@@ -211,14 +211,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                 FileAttribute<Set<PosixFilePermission>> attrs =
                         PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(getUnixDomainSocketPathPermissions()));
                 Path path = Paths.get(getUnixDomainSocketPath());
-                if (attrs != null) {
-                    Files.setAttribute(path, attrs.name(), attrs.value());
-                } else {
-                    java.io.File file = path.toFile();
-                    file.setReadable(true, false);
-                    file.setWritable(true, false);
-                    file.setExecutable(false, false);
-                }
+                Files.setAttribute(path, attrs.name(), attrs.value());
             }
         } else {
             serverSock = ServerSocketChannel.open();
