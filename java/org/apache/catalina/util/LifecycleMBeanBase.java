@@ -20,7 +20,6 @@ package org.apache.catalina.util;
 import javax.management.InstanceNotFoundException;
 import javax.management.MBeanRegistrationException;
 import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
 import org.apache.catalina.Globals;
@@ -157,12 +156,8 @@ public abstract class LifecycleMBeanBase extends LifecycleBase
         try {
             on = new ObjectName(name.toString());
             Registry.getRegistry(null, null).registerComponent(obj, on, null);
-        } catch (MalformedObjectNameException e) {
-            log.warn(sm.getString("lifecycleMBeanBase.registerFail", obj, name),
-                    e);
         } catch (Exception e) {
-            log.warn(sm.getString("lifecycleMBeanBase.registerFail", obj, name),
-                    e);
+            log.warn(sm.getString("lifecycleMBeanBase.registerFail", obj, name), e);
         }
 
         return on;
